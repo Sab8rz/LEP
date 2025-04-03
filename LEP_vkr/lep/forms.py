@@ -8,7 +8,7 @@ class LepCalculateForm(forms.Form):
         queryset=CityInfo.objects.all().order_by('city'),
         empty_label='Выберите город'
     )
-    span_length = forms.FloatField(min_value=30, max_value=700, label='Длина пролета')
+    span_length = forms.FloatField(label='Длина пролета')
     F0 = forms.FloatField(label='Общее сечение провода')
     d = forms.FloatField(label='Диаметр провода')
     p = forms.FloatField(label='Вес провода км/кг')

@@ -1,9 +1,11 @@
 from django.urls import path
 from . import views
-
+from .api.views import CityAPI, LepCalculateAPI
 
 urlpatterns = [
-    # path('', views.home),
-    # path('lep/', views.index),
-    path('', views.Index.as_view(), name='lep_calculate')
+    path('', views.index, name='lep_calculate'),
+
+    # API
+    path('api/cities/', CityAPI.as_view()),
+    path('api/lep-calculate/', LepCalculateAPI.as_view()),
 ]
