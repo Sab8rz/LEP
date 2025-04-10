@@ -18,6 +18,10 @@ class LepCalculateAPI(APIView):
         serializer = LepCalculateSerializer(data=request.data)
         if serializer.is_valid():
             calc = LepCalculator(**serializer.validated_data)
-            res = calc.calculate_all()
-            return Response({'result': res})
+            combination, descr, max_sag = calc.calculate_all()
+            return Response({
+                'combination': combination,
+                'descr': descr,
+                'max_sag': max_sag
+            })
         return Response(serializer.errors, status=400)

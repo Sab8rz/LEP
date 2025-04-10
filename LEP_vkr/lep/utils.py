@@ -131,5 +131,4 @@ class LepCalculator:
         f_max_key = max(f_all)
         f_max_value = f_all[f_max_key]
 
-        return f"Наибольшая стрела провеса получилась при {f_max_value[0]} сочетании климатических условий ({f_max_value[1]})\n" \
-               f"Стрела провеса = {f_max_key} м"
+        return f_max_value[0], f_max_value[1], f_max_key
