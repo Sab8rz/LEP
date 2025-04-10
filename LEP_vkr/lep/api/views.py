@@ -10,7 +10,7 @@ class CityAPI(APIView):
     def get(self, request):
         cities = CityInfo.objects.all()
         serializer = CityInfoSerializer(cities, many=True)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.data)
 
 
 class LepCalculateAPI(APIView):
