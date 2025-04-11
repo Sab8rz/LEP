@@ -14,3 +14,17 @@ class CityInfo(models.Model):
 
     def __str__(self):
         return self.city
+
+
+class WiresInfo(models.Model):
+    wire = models.CharField('Марка провода', max_length=15)
+    gen_cross_sec = models.FloatField('Общее сечение')
+    diametr = models.FloatField('Диаметр')
+    weight = models.FloatField('Вес')
+    coef_lin_exp = models.FloatField('Коэффициент линейного расширения')
+    mod_elast_mat = models.FloatField('Модуль упругости материала')
+    max_vol = models.FloatField('Допускаемое напряжение (наибольшие нагрузки)')
+    avg_vol = models.FloatField('Допускаемое напряжение (среднегодовая температура)')
+
+    def __str(self):
+        return self.wire

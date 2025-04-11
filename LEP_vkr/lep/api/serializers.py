@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from lep.models import CityInfo
+from lep.models import CityInfo, WiresInfo
 
 
 class CityInfoSerializer(serializers.ModelSerializer):
@@ -8,14 +8,13 @@ class CityInfoSerializer(serializers.ModelSerializer):
         fields = ('id', 'city')
 
 
+class WireInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WiresInfo
+        fields = ('id', 'wire')
+
+
 class LepCalculateSerializer(serializers.Serializer):
     city = serializers.PrimaryKeyRelatedField(queryset=CityInfo.objects.all())
+    wire = serializers.PrimaryKeyRelatedField(queryset=WiresInfo.objects.all())
     span_length = serializers.FloatField()
-    F0 = serializers.FloatField()
-    d = serializers.FloatField()
-    p = serializers.FloatField()
-    a0 = serializers.FloatField()
-    E0 = serializers.IntegerField()
-    o_r = serializers.FloatField()
-    o_h = serializers.FloatField()
-    o_c = serializers.FloatField()
