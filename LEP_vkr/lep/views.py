@@ -16,4 +16,4 @@ from django.views.generic import FormView
 
 
 def index(request):
-    return render(request, 'lep/index.html')
+    return render(request, 'lep/lep_form.html')
