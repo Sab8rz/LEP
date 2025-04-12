@@ -22,7 +22,7 @@ class WiresInfo(models.Model):
     diametr = models.FloatField('Диаметр')
     weight = models.FloatField('Вес')
     coef_lin_exp = models.FloatField('Коэффициент линейного расширения')
-    mod_elast_mat = models.FloatField('Модуль упругости материала')
+    mod_elast_mat = models.IntegerField('Модуль упругости материала')
     max_vol = models.FloatField('Допускаемое напряжение (наибольшие нагрузки)')
     avg_vol = models.FloatField('Допускаемое напряжение (среднегодовая температура)')
 

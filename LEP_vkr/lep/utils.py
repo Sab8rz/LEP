@@ -3,24 +3,25 @@ from numpy import roots, isreal, real
 
 
 class LepCalculator:
-    def __init__(self, city, span_length, F0, d, p, a0, E0, o_r, o_h, o_c):
+    def __init__(self, city, wire, span_length):
         self.city = city
         self.t_min = self.city.min_temp
         self.t_max = self.city.max_temp
         self.t_avg = self.city.avg_year_temp
         self.e = {1: 10, 2: 15, 3: 20, 4: 25, 5: 30, 6: 35}.get(self.city.ice_zone)
         self.q = {1: 400, 2: 500, 3: 650, 4: 800, 5: 1000, 6: 1250}.get(self.city.wind_zone) / 9.80665
+        self.wire = wire
+        self.F0 = self.wire.gen_cross_sec
+        self.d = self.wire.diametr
+        self.p = self.wire.weight
+        self.a0 = self.wire.coef_lin_exp * 10**-6
+        self.E0 = self.wire.mod_elast_mat
+        self.o_r = self.wire.max_vol
+        self.o_h = self.o_r
+        self.o_c = self.wire.avg_vol
         self.l = span_length
-        self.F0 = F0
-        self.d = d
-        self.p = p
-        self.a0 = a0 * 10**-6
-        self.E0 = E0
-        self.o_r = o_r
-        self.o_h = o_h
-        self.o_c = o_c
         self.q0 = 0.9
-        self.Cx = 1.2 if d < 20 else 1.1
+        self.Cx = 1.2 if self.d < 20 else 1.1
         self.t_led = -5
         self.t_c = 15
 
@@ -132,3 +133,21 @@ class LepCalculator:
         f_max_value = f_all[f_max_key]
 
         return f_max_value[0], f_max_value[1], f_max_key
+
+
+class LepCalculatorManual(LepCalculator):
+    def __init__(self, t_min, t_max, t_avg, e, q, span_length, F0, diameter, weight, a0, E0, o_r, o_c):
+        self.t_min = t_min
+        self.t_max = t_max
+        self.t_avg = t_avg
+        self.e = {1: 10, 2: 15, 3: 20, 4: 25, 5: 30, 6: 35}.get(e)
+        self.q = {1: 400, 2: 500, 3: 650, 4: 800, 5: 1000, 6: 1250}.get(q) / 9.80665
+        self.span_length = span_length
+        self.F0 = F0
+        self.d = diameter
+        self.p = weight
+        self.a0 = a0
+        self.E0 = E0
+        self.o_r = o_r
+        self.o_h = self.o_r
+        self.o_c = o_c
