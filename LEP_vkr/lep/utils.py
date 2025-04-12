@@ -63,7 +63,7 @@ class LepCalculator:
         numerator = (o_n - o_t) + self.a0 * self.E0 * (t_n - t_m)
         denominator = ((y_n ** 2 * self.E0) / (24 * o_n ** 2)) - ((y1 ** 2 * self.E0) / (24 * o_t ** 2))
 
-        return int(sqrt(numerator / denominator) * 1000)
+        return int(sqrt(abs(numerator) / denominator) * 1000)
 
         # numerator = 6 * ((o_n - o_t) * (1 / self.E0) + 19.2 * (t_n - t_m))
         # denominator = (y_n / y1)**2 - (o_n / o_t)**2
