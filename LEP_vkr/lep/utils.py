@@ -151,3 +151,7 @@ class LepCalculatorManual(LepCalculator):
         self.o_r = o_r
         self.o_h = self.o_r
         self.o_c = o_c
+        self.q0 = 0.9
+        self.Cx = 1.2 if self.d < 20 else 1.1
+        self.t_led = -5
+        self.t_c = 15
