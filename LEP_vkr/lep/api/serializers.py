@@ -22,7 +22,7 @@ def positive_num_validator(self):
 class LepCalculateSerializer(serializers.Serializer):
     city = serializers.PrimaryKeyRelatedField(queryset=CityInfo.objects.all())
     wire = serializers.PrimaryKeyRelatedField(queryset=WiresInfo.objects.all())
-    span_length = serializers.FloatField(min_value=30, max_value=500, validators=(positive_num_validator, ))
+    l = serializers.FloatField(min_value=30, max_value=500, validators=(positive_num_validator, ))
 
 
 class LepCalculateManualSerializer(serializers.Serializer):

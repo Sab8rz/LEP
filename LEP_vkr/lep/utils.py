@@ -3,7 +3,7 @@ from numpy import roots, isreal, real
 
 
 class LepCalculator:
-    def __init__(self, city, wire, span_length):
+    def __init__(self, city, wire, l):
         self.city = city
         self.t_min = self.city.min_temp
         self.t_max = self.city.max_temp
@@ -19,7 +19,7 @@ class LepCalculator:
         self.o_r = self.wire.max_vol
         self.o_h = self.o_r
         self.o_c = self.wire.avg_vol
-        self.l = span_length
+        self.l = l
         self.q0 = 0.9
         self.Cx = 1.2 if self.d < 20 else 1.1
         self.t_led = -5
