@@ -26,12 +26,12 @@ class LepCalculateSerializer(serializers.Serializer):
 
 
 class LepCalculateManualSerializer(serializers.Serializer):
-    span_length = serializers.FloatField(validators=(positive_num_validator, ))
     t_min = serializers.FloatField()
     t_max = serializers.FloatField()
     t_avg = serializers.FloatField()
     e = serializers.IntegerField(validators=(positive_num_validator, ))
     q = serializers.IntegerField(validators=(positive_num_validator, ))
+    l = serializers.FloatField(validators=(positive_num_validator,))
     F0 = serializers.FloatField(validators=(positive_num_validator, ))
     diameter = serializers.FloatField(validators=(positive_num_validator, ))
     weight = serializers.FloatField(validators=(positive_num_validator, ))
