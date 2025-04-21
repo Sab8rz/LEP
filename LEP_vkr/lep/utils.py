@@ -136,13 +136,13 @@ class LepCalculator:
 
 
 class LepCalculatorManual(LepCalculator):
-    def __init__(self, t_min, t_max, t_avg, e, q, span_length, F0, diameter, weight, a0, E0, o_r, o_c):
+    def __init__(self, t_min, t_max, t_avg, e, q, l, F0, diameter, weight, a0, E0, o_r, o_c):
         self.t_min = t_min
         self.t_max = t_max
         self.t_avg = t_avg
         self.e = {1: 10, 2: 15, 3: 20, 4: 25, 5: 30, 6: 35}.get(e)
         self.q = {1: 400, 2: 500, 3: 650, 4: 800, 5: 1000, 6: 1250}.get(q) / 9.80665
-        self.l = span_length
+        self.l = l
         self.F0 = F0
         self.d = diameter
         self.p = weight
