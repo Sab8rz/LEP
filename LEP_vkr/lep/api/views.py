@@ -16,7 +16,7 @@ class CityAPI(APIView):
 
 class SubjectAPI(APIView):
     def get(self, request):
-        subjects = SubjectInfo.objects.all()
+        subjects = SubjectInfo.objects.all().order_by('id')
         serializer = SubjectInfoSerializer(subjects, many=True)
         return Response(serializer.data)
 
