@@ -3,13 +3,13 @@ from numpy import roots, isreal, real
 
 
 class LepCalculator:
-    def __init__(self, city, wire, l):
-        self.city = city
-        self.t_min = self.city.min_temp
-        self.t_max = self.city.max_temp
-        self.t_avg = self.city.avg_year_temp
-        self.e = {1: 10, 2: 15, 3: 20, 4: 25, 5: 30, 6: 35}.get(self.city.ice_zone)
-        self.q = {1: 400, 2: 500, 3: 650, 4: 800, 5: 1000, 6: 1250}.get(self.city.wind_zone) / 9.80665
+    def __init__(self, subject, wire, l):
+        self.subject = subject
+        self.t_min = self.subject.min_temp
+        self.t_max = self.subject.max_temp
+        self.t_avg = self.subject.avg_year_temp
+        self.e = {1: 10, 2: 15, 3: 20, 4: 25, 5: 30, 6: 35}.get(self.subject.ice_zone)
+        self.q = {1: 400, 2: 500, 3: 650, 4: 800, 5: 1000, 6: 1250}.get(self.subject.wind_zone) / 9.80665
         self.wire = wire
         self.F0 = self.wire.gen_cross_sec
         self.d = self.wire.diametr

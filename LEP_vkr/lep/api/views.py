@@ -1,8 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from lep.api.serializers import CityInfoSerializer, LepCalculateSerializer, WireInfoSerializer, LepCalculateManualSerializer
-from lep.models import CityInfo, WiresInfo
+from lep.api.serializers import CityInfoSerializer, LepCalculateSerializer, WireInfoSerializer, \
+    LepCalculateManualSerializer, SubjectInfoSerializer
+from lep.models import CityInfo, WiresInfo, SubjectInfo
 from lep.utils import LepCalculator, LepCalculatorManual
 
 
@@ -10,6 +11,13 @@ class CityAPI(APIView):
     def get(self, request):
         cities = CityInfo.objects.all()
         serializer = CityInfoSerializer(cities, many=True)
+        return Response(serializer.data)
+
+
+class SubjectAPI(APIView):
+    def get(self, request):
+        subjects = SubjectInfo.objects.all()
+        serializer = SubjectInfoSerializer(subjects, many=True)
         return Response(serializer.data)
 
 

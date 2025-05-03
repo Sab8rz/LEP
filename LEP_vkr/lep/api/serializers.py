@@ -1,11 +1,17 @@
 from rest_framework import serializers
-from lep.models import CityInfo, WiresInfo
+from lep.models import CityInfo, WiresInfo, SubjectInfo
 
 
 class CityInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CityInfo
         fields = ('id', 'city')
+
+
+class SubjectInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubjectInfo
+        fields = ('id', 'subject')
 
 
 class WireInfoSerializer(serializers.ModelSerializer):
@@ -20,7 +26,8 @@ def positive_num_validator(self):
 
 
 class LepCalculateSerializer(serializers.Serializer):
-    city = serializers.PrimaryKeyRelatedField(queryset=CityInfo.objects.all())
+    # city = serializers.PrimaryKeyRelatedField(queryset=CityInfo.objects.all())
+    subject = serializers.PrimaryKeyRelatedField(queryset=SubjectInfo.objects.all())
     wire = serializers.PrimaryKeyRelatedField(queryset=WiresInfo.objects.all())
     l = serializers.FloatField(min_value=30, max_value=500, validators=(positive_num_validator, ))
 
