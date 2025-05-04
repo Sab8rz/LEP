@@ -113,20 +113,20 @@ class LepCalculator:
 
         clim_1 = self.clim_func(y7, y_calc, self.t_led, t_calc)
         clim_2 = self.clim_func(y3, y_calc, self.t_led, t_calc)
-        clim_3 = self.clim_func(y6, y_calc, self.t_avg, t_calc)
+        clim_3 = self.clim_func(y6, y_calc, self.t_led, t_calc)
         clim_4 = self.clim_func(y1, y_calc, self.t_avg, t_calc)
         clim_5 = self.clim_func(y1, y_calc, self.t_c, t_calc)
         clim_6 = self.clim_func(y1, y_calc, self.t_min, t_calc)
         clim_7 = self.clim_func(y1, y_calc, self.t_max, t_calc)
 
         f_all = {
-            self.f(y7, clim_1): ('I', 'провода покрыты гололёдом'),
-            self.f(y3, clim_2): ('II', 'провода покрыты гололёдом, ветра нет'),
-            self.f(y6, clim_3): ('III', f'скоростной напор – {self.q:.2f} кг/см^3; при -5ºС; гололёда нет'),
-            self.f(y1, clim_4): ('IV', f'гололёда и ветра нет; среднегодовая температура: {self.t_avg}ºС'),
-            self.f(y1, clim_5): ('V', '15ºС, ветра и гололёда нет'),
-            self.f(y1, clim_6): ('VI', f'{self.t_min} режим низшей температуры; ветра и гололёда нет'),
-            self.f(y1, clim_7): ('VII', f'{self.t_max} режим высшей температуры; ветра и гололёда нет')
+            self.f(y7, clim_1): ('I', 'Провода покрыты гололёдом с воздействием ветровой нагрузки'),
+            self.f(y3, clim_2): ('II', 'Провода покрыты гололёдом без воздействия ветровой нагрузки'),
+            self.f(y6, clim_3): ('III', f'Скоростной напор ветра – {self.q:.2f} кг/см^3 при -5ºС, гололёд отсутствует'),
+            self.f(y1, clim_4): ('IV', f'Отсутствие гололёда и ветра при среднегодовой температуре: {self.t_avg}ºС'),
+            self.f(y1, clim_5): ('V', 'Температура составляет 15ºС, ветра и гололёда нет'),
+            self.f(y1, clim_6): ('VI', f'Режим низшей температуры при {self.t_min}ºС, ветер и гололёд отсутствуют'),
+            self.f(y1, clim_7): ('VII', f'Режим высшей температуры при {self.t_max}ºС, ветер и гололёд отсутствуют')
         }
 
         f_max_key = max(f_all)
