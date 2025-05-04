@@ -13,7 +13,7 @@ class LepCalculator:
         self.wire = wire  # марка провода
         self.F0 = self.wire.gen_cross_sec  # общее сечение
         self.d = self.wire.diametr  # диаметр
-        self.p = self.wire.weight  # вес кг/км
+        self.p = self.wire.weight * 9.80665 / 1000  # вес
         self.a0 = self.wire.coef_lin_exp * 10**-6  # коэффициент линейного расширения
         self.E0 = self.wire.mod_elast_mat  # модуль упругости материала
         self.o_r = self.wire.max_vol  # допустимое напряжение при наибольших нагрузках
@@ -145,7 +145,7 @@ class LepCalculatorManual(LepCalculator):
         self.l = l
         self.F0 = F0
         self.d = diameter
-        self.p = weight
+        self.p = weight * 9.80665 / 1000
         self.a0 = a0 * 10**-6
         self.E0 = E0
         self.o_r = o_r
