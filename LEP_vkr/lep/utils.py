@@ -4,26 +4,26 @@ from numpy import roots, isreal, real
 
 class LepCalculator:
     def __init__(self, subject, wire, l):
-        self.subject = subject
-        self.t_min = self.subject.min_temp
-        self.t_max = self.subject.max_temp
-        self.t_avg = self.subject.avg_year_temp
-        self.e = {1: 10, 2: 15, 3: 20, 4: 25, 5: 30, 6: 35}.get(self.subject.ice_zone)
-        self.q = {1: 400, 2: 500, 3: 650, 4: 800, 5: 1000, 6: 1250}.get(self.subject.wind_zone) / 9.80665
-        self.wire = wire
-        self.F0 = self.wire.gen_cross_sec
-        self.d = self.wire.diametr
-        self.p = self.wire.weight
-        self.a0 = self.wire.coef_lin_exp * 10**-6
-        self.E0 = self.wire.mod_elast_mat
-        self.o_r = self.wire.max_vol
-        self.o_h = self.o_r
-        self.o_c = self.wire.avg_vol
-        self.l = l
-        self.q0 = 0.9
-        self.Cx = 1.2 if self.d < 20 else 1.1
-        self.t_led = -5
-        self.t_c = 15
+        self.subject = subject  # регион
+        self.t_min = self.subject.min_temp  # абсолютная минимальная температура
+        self.t_max = self.subject.max_temp  # абсолютная максимальная температура
+        self.t_avg = self.subject.avg_year_temp  # среднегодовая температура
+        self.e = {1: 10, 2: 15, 3: 20, 4: 25, 5: 30, 6: 35}.get(self.subject.ice_zone)  # район по гололеду
+        self.q = {1: 400, 2: 500, 3: 650, 4: 800, 5: 1000, 6: 1250}.get(self.subject.wind_zone) / 9.80665  # район по ветровой нагрузке
+        self.wire = wire  # марка провода
+        self.F0 = self.wire.gen_cross_sec  # общее сечение
+        self.d = self.wire.diametr  # диаметр
+        self.p = self.wire.weight  # вес кг/км
+        self.a0 = self.wire.coef_lin_exp * 10**-6  # коэффициент линейного расширения
+        self.E0 = self.wire.mod_elast_mat  # модуль упругости материала
+        self.o_r = self.wire.max_vol  # допустимое напряжение при наибольших нагрузках
+        self.o_h = self.o_r  # допустимое напряжение при низших температурах = наибольших нагрузках
+        self.o_c = self.wire.avg_vol  # допустимое напряжение при среднегодовой температуре
+        self.l = l  # длина пролета
+        self.q0 = 0.9  # удельный вес гололеда
+        self.Cx = 1.2 if self.d < 20 else 1.1  # аэродинамический коэффициент
+        self.t_led = -5  # температура гололедообразования
+        self.t_c = 15  #
 
     def y4_func(self):
         interpolation_table = {
@@ -123,7 +123,7 @@ class LepCalculator:
             self.f(y7, clim_1): ('I', 'провода покрыты гололёдом'),
             self.f(y3, clim_2): ('II', 'провода покрыты гололёдом, ветра нет'),
             self.f(y6, clim_3): ('III', f'скоростной напор – {self.q:.2f} кг/см^3; при -5ºС; гололёда нет'),
-            self.f(y1, clim_4): ('IV', 'гололёда и ветра нет; среднегодовая температура: 5ºС'),
+            self.f(y1, clim_4): ('IV', f'гололёда и ветра нет; среднегодовая температура: {self.t_avg}ºС'),
             self.f(y1, clim_5): ('V', '15ºС, ветра и гололёда нет'),
             self.f(y1, clim_6): ('VI', f'{self.t_min} режим низшей температуры; ветра и гололёда нет'),
             self.f(y1, clim_7): ('VII', f'{self.t_max} режим высшей температуры; ветра и гололёда нет')
@@ -146,7 +146,7 @@ class LepCalculatorManual(LepCalculator):
         self.F0 = F0
         self.d = diameter
         self.p = weight
-        self.a0 = a0
+        self.a0 = a0 * 10**-6
         self.E0 = E0
         self.o_r = o_r
         self.o_h = self.o_r
