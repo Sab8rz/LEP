@@ -41,8 +41,7 @@ class LepCalculator:
         q_pa = self.q * 9.80665
 
         keys = list(interpolation_table.keys())
-        X1 = None
-        X2 = None
+
         for i in range(len(keys)):
             if q_pa <= keys[i]:
                 X1 = keys[i - 1]
@@ -64,11 +63,6 @@ class LepCalculator:
         denominator = ((y_n ** 2 * self.E0) / (24 * o_n ** 2)) - ((y1 ** 2 * self.E0) / (24 * o_t ** 2))
 
         return int(sqrt(abs(numerator) / denominator) * 1000)
-
-        # numerator = 6 * ((o_n - o_t) * (1 / self.E0) + 19.2 * (t_n - t_m))
-        # denominator = (y_n / y1)**2 - (o_n / o_t)**2
-        #
-        # return ((2 * o_n) / y1) * sqrt(numerator/denominator)
 
     def clim_func(self, y_n, y_m, t_n, t_m):
         A = (self.l**2 * (y_n * 10**-3)**2 * self.E0) / 24
@@ -120,11 +114,11 @@ class LepCalculator:
         clim_7 = self.clim_func(y1, y_calc, self.t_max, t_calc)
 
         f_all = {
-            self.f(y7, clim_1): ('I', 'Провода покрыты гололёдом с воздействием ветровой нагрузки'),
+            self.f(y7, clim_1): ('I', f'Провода покрыты гололёдом вместе с скоростным напором ветра – {self.q:.2f} кг/см^3'),
             self.f(y3, clim_2): ('II', 'Провода покрыты гололёдом без воздействия ветровой нагрузки'),
             self.f(y6, clim_3): ('III', f'Скоростной напор ветра – {self.q:.2f} кг/см^3 при -5ºС, гололёд отсутствует'),
             self.f(y1, clim_4): ('IV', f'Отсутствие гололёда и ветра при среднегодовой температуре: {self.t_avg}ºС'),
-            self.f(y1, clim_5): ('V', 'Температура составляет 15ºС, ветра и гололёда нет'),
+            self.f(y1, clim_5): ('V', f'Режим среднегодовой температуры при {self.t_avg}ºС, ветра и гололёда нет'),
             self.f(y1, clim_6): ('VI', f'Режим низшей температуры при {self.t_min}ºС, ветер и гололёд отсутствуют'),
             self.f(y1, clim_7): ('VII', f'Режим высшей температуры при {self.t_max}ºС, ветер и гололёд отсутствуют')
         }

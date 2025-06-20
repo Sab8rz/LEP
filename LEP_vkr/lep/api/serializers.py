@@ -1,11 +1,5 @@
 from rest_framework import serializers
-from lep.models import CityInfo, WiresInfo, SubjectInfo
-
-
-class CityInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CityInfo
-        fields = ('id', 'city')
+from lep.models import WiresInfo, SubjectInfo
 
 
 class SubjectInfoSerializer(serializers.ModelSerializer):
@@ -26,10 +20,9 @@ def positive_num_validator(self):
 
 
 class LepCalculateSerializer(serializers.Serializer):
-    # city = serializers.PrimaryKeyRelatedField(queryset=CityInfo.objects.all())
     subject = serializers.PrimaryKeyRelatedField(queryset=SubjectInfo.objects.all())
     wire = serializers.PrimaryKeyRelatedField(queryset=WiresInfo.objects.all())
-    l = serializers.FloatField(min_value=30, max_value=500, validators=(positive_num_validator, ))
+    l = serializers.FloatField(min_value=30, max_value=700, validators=(positive_num_validator, ))
 
 
 class LepCalculateManualSerializer(serializers.Serializer):
@@ -38,7 +31,7 @@ class LepCalculateManualSerializer(serializers.Serializer):
     t_avg = serializers.FloatField()
     e = serializers.IntegerField(validators=(positive_num_validator, ))
     q = serializers.IntegerField(validators=(positive_num_validator, ))
-    l = serializers.FloatField(validators=(positive_num_validator,))
+    l = serializers.FloatField(min_value=30, max_value=700, validators=(positive_num_validator, ))
     F0 = serializers.FloatField(validators=(positive_num_validator, ))
     diameter = serializers.FloatField(validators=(positive_num_validator, ))
     weight = serializers.FloatField(validators=(positive_num_validator, ))
