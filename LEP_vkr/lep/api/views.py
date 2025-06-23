@@ -1,5 +1,6 @@
+from adrf.views import APIView
+from asgiref.sync import sync_to_async
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from lep.api.serializers import LepCalculateSerializer, WireInfoSerializer, \
     LepCalculateManualSerializer, SubjectInfoSerializer
@@ -8,15 +9,15 @@ from lep.utils import LepCalculator, LepCalculatorManual
 
 
 class SubjectAPI(APIView):
-    def get(self, request):
-        subjects = SubjectInfo.objects.all().order_by('id')
+    async def get(self, request):
+        subjects = await sync_to_async(list)(SubjectInfo.objects.all().order_by('subject'))
         serializer = SubjectInfoSerializer(subjects, many=True)
         return Response(serializer.data)
 
 
 class WireAPI(APIView):
-    def get(self, request):
-        wires = WiresInfo.objects.all()
+    async def get(self, request):
+        wires = await sync_to_async(list)(WiresInfo.objects.all())
         serializer = WireInfoSerializer(wires, many=True)
         return Response(serializer.data)
 
